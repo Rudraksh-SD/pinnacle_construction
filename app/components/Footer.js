@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getContact } from "@/sanity/lib/content";
+import { getContact } from "@/lib/wordpress/content";
 import { Icon } from "@/app/components/icons";
 
 export default async function Footer() {

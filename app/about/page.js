@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { stats, story, mission, vision } from "@/data/siteContent";
-import { getProjects, getTeam } from "@/sanity/lib/content";
+import { getProjects, getTeam } from "@/lib/wordpress/content";
 import { Icon } from "@/app/components/icons";
 import Reveal from "@/app/components/Reveal";
 import CountUp from "@/app/components/CountUp";

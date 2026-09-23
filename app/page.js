@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { stats, whyChooseUs, features, services, loanPartners } from "@/data/siteContent";
-import { getProjects, getTestimonials } from "@/sanity/lib/content";
+import { getProjects, getTestimonials } from "@/lib/wordpress/content";
 import { Icon } from "@/app/components/icons";
 import { badgeLabel, BADGE_PILL } from "@/app/components/status";
 import Reveal from "@/app/components/Reveal";

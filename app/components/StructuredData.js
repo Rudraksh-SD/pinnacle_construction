@@ -1,4 +1,4 @@
-import { getContact } from "@/sanity/lib/content";
+import { getContact } from "@/lib/wordpress/content";
 import { SITE_NAME, SITE_URL } from "@/sanity/lib/site";
 
 // Tells Google that this site and the Google Business Profile are the same Nagpur

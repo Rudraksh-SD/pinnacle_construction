@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { faqs } from "@/data/siteContent";
-import { getContact, getProjects } from "@/sanity/lib/content";
+import { getContact, getProjects } from "@/lib/wordpress/content";
 import BookingForm from "./BookingForm";
 import Faq from "./Faq";
 import { Icon } from "@/app/components/icons";

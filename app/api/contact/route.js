@@ -1,4 +1,4 @@
-import { getContact } from "@/sanity/lib/content";
+import { getContact } from "@/lib/wordpress/content";
 
 const FROM = process.env.CONTACT_FROM_EMAIL ?? "Pinnacle Construction <onboarding@resend.dev>";
 

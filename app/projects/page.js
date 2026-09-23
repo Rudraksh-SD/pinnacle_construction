@@ -1,4 +1,4 @@
-import { getProjects } from "@/sanity/lib/content";
+import { getProjects } from "@/lib/wordpress/content";
 import ProjectsBrowser from "./ProjectsBrowser";
 
 export const metadata = {

@@ -1,4 +1,4 @@
-import { getContact } from "@/sanity/lib/content";
+import { getContact } from "@/lib/wordpress/content";
 
 export default async function WhatsAppButton({ projectName }) {
   const contact = await getContact();

@@ -1,4 +1,4 @@
-import { getProjectSlugs } from "@/sanity/lib/content";
+import { getProjectSlugs } from "@/lib/wordpress/content";
 import { SITE_URL } from "@/sanity/lib/site";
 
 const STATIC_ROUTES = [

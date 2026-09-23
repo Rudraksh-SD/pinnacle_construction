@@ -1,4 +1,4 @@
-import { getContact } from "@/sanity/lib/content";
+import { getContact } from "@/lib/wordpress/content";
 
 export const metadata = {
   title: "Privacy Policy",

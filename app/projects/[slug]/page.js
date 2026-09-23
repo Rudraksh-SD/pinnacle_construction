@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, getProjectSlugs } from "@/sanity/lib/content";
+import { getProjectBySlug, getProjectSlugs } from "@/lib/wordpress/content";
 import { Icon } from "@/app/components/icons";
 import { badgeClass, badgeLabel } from "@/app/components/status";
 import Reveal from "@/app/components/Reveal";
