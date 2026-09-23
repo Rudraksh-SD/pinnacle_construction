@@ -1,16 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { stats, whyChooseUs, features, services, testimonials, loanPartners } from "@/data/siteContent";
-import { projects } from "@/data/projects";
+import { stats, whyChooseUs, features, services, loanPartners } from "@/data/siteContent";
+import { getProjects, getTestimonials } from "@/lib/wordpress/content";
 import { Icon } from "@/app/components/icons";
+import { badgeLabel, BADGE_PILL } from "@/app/components/status";
 import Reveal from "@/app/components/Reveal";
 import CountUp from "@/app/components/CountUp";
 import TestimonialsCarousel from "@/app/components/TestimonialsCarousel";
+import HomePageAnimations from "@/app/components/HomePageAnimations";
 
 // The hero already shows this one full-bleed; the strip beneath it covers the rest.
 const HERO_SLUG = "dravin-enclave";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [projects, testimonials] = await Promise.all([
+    getProjects(),
+    getTestimonials(),
+  ]);
+
   const featuredProjects = projects.filter((project) => project.featured);
   const heroStrip = projects
     .filter((project) => project.status !== "completed" && project.slug !== HERO_SLUG)
@@ -18,9 +25,11 @@ export default function HomePage() {
 
   return (
     <>
+      <HomePageAnimations />
       {/* Hero */}
-      <section className="relative flex min-h-[88vh] items-end overflow-hidden">
+      <section data-hero className="relative flex min-h-[88vh] items-end overflow-hidden">
         <Image
+          data-hero-image
           src="/images/dravin-enclave/exterior-day.jpg"
           alt="Dravin Enclave, an ongoing Pinnacle Construction residential project in Nagpur"
           fill
@@ -28,24 +37,26 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
+        <div data-hero-overlay className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
 
-        <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
-          <h1 className="max-w-2xl font-heading text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
+        <div data-hero-content className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+          <h1 data-hero-title className="max-w-2xl font-heading text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
             15 years of building homes families trust
           </h1>
-          <p className="mt-5 max-w-xl text-lg text-white/85">
+          <p data-hero-description className="mt-5 max-w-xl text-lg text-white/85">
             From foundation to handover, Pinnacle Construction delivers residential projects across
             Nagpur with proven reliability, transparent process, and on-time delivery.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div data-hero-buttons className="mt-8 flex flex-wrap gap-4">
             <Link
+              data-hero-button
               href="/projects"
               className="rounded-full bg-cta px-7 py-3.5 font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-cta-hover hover:shadow-lg"
             >
               Explore Projects
             </Link>
             <Link
+              data-hero-button
               href="/contact"
               className="rounded-full border border-white/40 bg-white/10 px-7 py-3.5 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20"
             >
@@ -57,6 +68,7 @@ export default function HomePage() {
             {heroStrip.map((project) => (
               <Link
                 key={project.slug}
+                data-hero-strip-item
                 href={`/projects/${project.slug}`}
                 className="group relative h-20 w-32 shrink-0 overflow-hidden rounded-xl border border-white/25 transition-all hover:-translate-y-1 hover:border-white/60 lg:h-24 lg:w-40"
               >
@@ -128,6 +140,9 @@ export default function HomePage() {
                     <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
                       {project.status}
                     </span>
+                    {badgeLabel(project.badge) && (
+                      <span className={BADGE_PILL}>{badgeLabel(project.badge)}</span>
+                    )}
                   </div>
                   <div className="p-6">
                     <h3 className="font-heading text-xl font-bold text-ink">{project.name}</h3>
@@ -250,7 +265,7 @@ export default function HomePage() {
                 alt={partner.name}
                 width={120}
                 height={48}
-                className="h-9 w-auto object-contain opacity-80 grayscale transition-all hover:opacity-100 hover:grayscale-0 dark:brightness-110"
+                className="h-9 w-auto object-contain transition-transform hover:scale-105"
               />
             ))}
           </Reveal>

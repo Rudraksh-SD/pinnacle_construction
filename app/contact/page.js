@@ -1,27 +1,32 @@
 import { Suspense } from "react";
-import { contact, faqs } from "@/data/contact";
+import { faqs } from "@/data/siteContent";
+import { getContact, getProjects } from "@/lib/wordpress/content";
 import BookingForm from "./BookingForm";
 import Faq from "./Faq";
 import { Icon } from "@/app/components/icons";
+import Reveal from "@/app/components/Reveal";
 
 export const metadata = {
-  title: "Contact Us | Pinnacle Construction",
+  title: "Contact Us",
+  alternates: { canonical: "/contact" },
   description: "Get in touch with Pinnacle Construction or book a site visit to one of our Nagpur projects.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [contact, projects] = await Promise.all([getContact(), getProjects()]);
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <h1 className="font-heading text-4xl font-extrabold text-ink">Get in Touch</h1>
         <p className="mt-3 text-ink-muted">
           Share your requirements with us to help us know your design in more detail.
         </p>
-      </div>
+      </Reveal>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-2">
         <div className="space-y-8">
-          <div>
+          <Reveal delay={80}>
             <div className="flex items-center gap-2 text-brand-crimson-600">
               <Icon name="phone" className="h-5 w-5" />
               <h2 className="font-heading text-lg font-bold">Call Us</h2>
@@ -48,9 +53,9 @@ export default function ContactPage() {
               <Icon name="phone" className="h-4 w-4" />
               Chat on WhatsApp
             </a>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={160}>
             <div className="flex items-center gap-2 text-brand-crimson-600">
               <Icon name="envelope" className="h-5 w-5" />
               <h2 className="font-heading text-lg font-bold">Email Us</h2>
@@ -62,9 +67,9 @@ export default function ContactPage() {
             >
               {contact.email}
             </a>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={240}>
             <div className="flex items-center gap-2 text-brand-crimson-600">
               <Icon name="mapPin" className="h-5 w-5" />
               <h2 className="font-heading text-lg font-bold">Our Location</h2>
@@ -78,18 +83,18 @@ export default function ContactPage() {
                 loading="lazy"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        <div>
+        <Reveal delay={120}>
           <Suspense fallback={null}>
-            <BookingForm />
+            <BookingForm projects={projects} contact={contact} />
           </Suspense>
-        </div>
+        </Reveal>
       </div>
 
       <div className="mx-auto mt-20 max-w-3xl">
-        <div className="text-center">
+        <Reveal className="text-center">
           <h2 className="font-heading text-2xl font-bold text-ink sm:text-3xl">
             Committed to quality construction you can trust
           </h2>
@@ -97,10 +102,10 @@ export default function ContactPage() {
             We&apos;ve been trusted by clients and housing societies across Nagpur for over 15
             years, backed by a team that delivers even on tight deadlines.
           </p>
-        </div>
-        <div className="mt-8">
+        </Reveal>
+        <Reveal delay={100} className="mt-8">
           <Faq faqs={faqs} />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
